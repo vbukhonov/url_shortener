@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shortener</title>
+</head>
+<body>
+<form method=POST>
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>URL:</td>
+            <td><input type="url" name="input_url"></td>
+        </tr>
+    </table>
+    <button type="submit">Generate</button>
+</form>
+</body>
+</html>
