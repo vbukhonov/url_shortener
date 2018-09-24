@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ROOT_URL = "locahost:8000"
+KEY_SIZE = 8
 
 # Application definition
 

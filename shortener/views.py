@@ -3,7 +3,8 @@ __author__ = 'Vladimir'
 import hashlib
 from django.shortcuts import render, redirect, Http404
 from .models import ShortenedURL
-from url_shortener.settings import ROOT_URL
+from url_shortener.settings import ROOT_URL, KEY_SIZE
+
 
 # Create your views here.
 
@@ -16,9 +17,9 @@ def shorten_url(request):
     """
     if request.method == "POST":
         input_url = request.POST.get("input_url", None)
-        print(input_url)
-        h = hashlib.blake2b(digest_size=8)
-        generated_key = h.update(str(input_url).encode()).hexdigest()
+        h = hashlib.blake2b(digest_size=KEY_SIZE)
+        h.update(str(input_url).encode())
+        generated_key = h.hexdigest()
         shortened_url, created = ShortenedURL.objects.get_or_create(
             original_url=input_url
         )
@@ -49,5 +50,4 @@ def redirect_to_original_url(request, short_key):
     if db_response.exists():
         return redirect(db_response.first().original_url)
     else:
-        print(short_key)
         raise Http404
