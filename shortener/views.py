@@ -11,9 +11,9 @@ from url_shortener.settings import ROOT_URL, KEY_SIZE
 
 def shorten_url(request):
     """
-    
-    :param request:
-    :return:
+    This view function's purpose is to generate and return some unique value
+    of length KEY_SIZE which is later used to create short url.
+    Original url value is passed via POST.
     """
     if request.method == "POST":
         input_url = request.POST.get("input_url", None)
@@ -41,10 +41,8 @@ def shorten_url(request):
 
 def redirect_to_original_url(request, short_key):
     """
-    
-    :param request:
-    :param short_key:
-    :return:
+    This view function's purpose is to redirect to original url by
+    using the key value from short url.
     """
     db_response = ShortenedURL.objects.filter(generated_key=short_key)
     if db_response.exists():
